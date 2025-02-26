@@ -63,6 +63,35 @@ Below is a JSON for IAM policy:
      - Role name - **lambda-apigateway-role**
      - Attach above policy
 
-### Create API Gateway
+### Create API
+Create DynamoDBOperations API following below steps
+1. Go to API Gateway on AWS Console
+2. Click Create API
+   ![image](https://github.com/user-attachments/assets/374867bc-44fb-454c-841d-d3cc77fc1de7)
+3. Scroll down and Select "Build" for Rest API
+   ![image](https://github.com/user-attachments/assets/c0260951-a745-49f8-a951-6976e133e84b)
+4. Give API name as "DynamoDBOperations" and click "Create API"
+   ![image](https://github.com/user-attachments/assets/6dd781c0-74cd-42d6-817b-99f0ea9c8317)
+   ![image](https://github.com/user-attachments/assets/542c8141-626f-497d-acbc-aee9b4beac85)
+
+5. API is a collection of resources and methods are integrated with backend HTTP endpoints, Lambda functions, or other AWS services. Click "Create Resource"
+   ![image](https://github.com/user-attachments/assets/011a0e3a-e6e8-4ea1-a11d-a29e993381e5)
+6. Mention resource name "DynamoDBManager" and click "Create resource"
+   ![image](https://github.com/user-attachments/assets/34f6e1f8-7528-4843-9310-c9f46a87a747)
+
+7. Let's create a POST method for our API. Select "/DynamoDBManager" and click "Create Method"
+   ![image](https://github.com/user-attachments/assets/553d5867-5016-49eb-af45-48cfcf196e25)
+8. Select
+   - Method type: POST
+   - Integration type: Lambda
+   - Lambda function: LambdaFunctionOverHttps (which we created earlier)
+   - Click "Create method"
+   ![image](https://github.com/user-attachments/assets/2b5b09ca-f203-45cd-ad5e-9faa7a5f9417)
+
+  
+
+
+### Create Lambda Function
+
 
 
