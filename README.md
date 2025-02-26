@@ -1,2 +1,2 @@
-# Serverless-API
+# AWS Serverless-API
 Serverless API using AWS
