@@ -186,7 +186,7 @@ Follow below steps to access our API:
      ![image](https://github.com/user-attachments/assets/77e83ed4-f47f-4423-9f03-0e807ba042ac)
      ![image](https://github.com/user-attachments/assets/61dee301-a584-42ff-a1cc-36bddcb0b843)
 
-### Test new Loadt Testing feature of Postman
+### Test new Load Testing feature of Postman
 🚀Observed significant performance boost after adjusting Lambda configurations by allocating more memory from 128 to 1024. This enabled average response time improved drastically from **315ms to 94ms**! 🚀
 ![loadtest1](https://github.com/user-attachments/assets/29b55561-c2b3-4f23-aa64-b762f79edbc8)
 ![image](https://github.com/user-attachments/assets/fed1b58e-375a-4e33-a41e-9a657486f280)
