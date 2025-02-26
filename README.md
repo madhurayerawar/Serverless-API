@@ -193,6 +193,7 @@ Postman enables you to simulate user traffic and observe how your API behaved un
 2. Limit instances: 10
 3. **Memeory: 128MB to 1024MB**
 4. **Reserved Concurrency: 10**
+
 🚀Observed significant performance boost after adjusting Lambda configurations. This enabled average response time improved drastically from **315ms to 94ms**! 🚀
 ![loadtest1](https://github.com/user-attachments/assets/29b55561-c2b3-4f23-aa64-b762f79edbc8)
 ![image](https://github.com/user-attachments/assets/fed1b58e-375a-4e33-a41e-9a657486f280)
