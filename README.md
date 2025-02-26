@@ -25,7 +25,6 @@ Configured an custom IAM role to give executional permissions to access AWS reso
 1. Open IAM -> Policies in AWS console
 2. Create a policy to give permissions – Custom policy with permission to DynamoDB and CloudWatch Logs. This custom policy has the permissions that the function needs to write data to DynamoDB and upload logs.
 3. Below is a JSON for IAM policy:
-
 ```json
 {
 "Version": "2012-10-17",
@@ -72,21 +71,21 @@ Configured an custom IAM role to give executional permissions to access AWS reso
 6. Click "Create function"
   ![image](https://github.com/user-attachments/assets/f784a54b-5f06-4c01-b1df-b33a99b7e3cd)
 
-7. Click on the Lambda function and add below code to it
+7. Click on the Lambda function and replace the boilerplate coding with below code
    ```
    from __future__ import print_function
 
    import boto3
    import json
 
-   print('Loading function')
-def lambda_handler(event, context):
-    '''Provide an event that contains the following keys:
+     print('Loading function')
+    def lambda_handler(event, context):
+    #Provide an event that contains the following keys:
 
-      - operation: one of the operations in the operations dict below
-      - tableName: required for operations that interact with DynamoDB
-      - payload: a parameter to pass to the operation being performed
-    '''
+    #  - operation: one of the operations in the operations dict below
+    #  - tableName: required for operations that interact with DynamoDB
+    #  - payload: a parameter to pass to the operation being performed
+    
     #print("Received event: " + json.dumps(event, indent=2))
 
     operation = event['operation']
@@ -129,10 +128,11 @@ Let's test our Lambda function before delploying and as we haven't created our A
 4. Click "Test" in the "Code" tab
 ![image](https://github.com/user-attachments/assets/cc841ea5-1fa4-4a92-b3ea-db22374a6434)
 
-5. Click "Deploy"
+5. Once you are happy with the testing then Click "Deploy"
 ![image](https://github.com/user-attachments/assets/af21904f-9c5a-450f-87bf-80368d2a8e5d)
 
 #### We are all set to create DynamoDB table and API using our Lambda as backend!
+
 
 ### Create API
 Create DynamoDBOperations API following below steps
@@ -160,4 +160,19 @@ Create DynamoDBOperations API following below steps
    ![image](https://github.com/user-attachments/assets/2b5b09ca-f203-45cd-ad5e-9faa7a5f9417)
 
 
+### Create Amazon DynamoDB Table 
+Create the DynamoDB table that the Lambda function uses.
+#### Follow below steps to create DynamoDB table
+1. Go to DynamoDB service on AWS console
+2. Select "Create table"
+   ![image](https://github.com/user-attachments/assets/a0e1291c-23dc-475d-bdf3-76c5acad2389)
+3. Provide
+     Table name: lambda-apigateway
+     Primary Key/ Partition Key: id (string)
+4. Select "Create table"
+   ![image](https://github.com/user-attachments/assets/8f2d0051-e116-4956-a09e-e20e369bc06a)
+   ![image](https://github.com/user-attachments/assets/32358dbe-effc-498e-8210-2033ce5bd4e7)
+![image](https://github.com/user-attachments/assets/462f5f2f-8bd4-4cf6-9c8e-90ce0669763f)
+
+### Access API using Postman
 
