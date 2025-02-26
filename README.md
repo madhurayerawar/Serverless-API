@@ -24,9 +24,7 @@ The JSON request which you send in the POST request identifies the operation and
 Configured an custom IAM role to give executional permissions to access AWS resources. To do so follow
 1. Open IAM -> Policies in AWS console
 2. Create a policy to give permissions – Custom policy with permission to DynamoDB and CloudWatch Logs. This custom policy has the permissions that the function needs to write data to DynamoDB and upload logs.
-3. ## JSON
-
-Below is a JSON for IAM policy:
+3. Below is a JSON for IAM policy:
 
 ```json
 {
@@ -63,6 +61,79 @@ Below is a JSON for IAM policy:
      - Role name - **lambda-apigateway-role**
      - Attach above policy
 
+
+### Create Lambda Function
+1. GO to Lambda on AWS Console and click "Create API"
+   ![image](https://github.com/user-attachments/assets/3cd2f1c2-4719-45e5-b457-c3466cfc0814)
+2. Select "Author from Scratch"
+3. Give Function name as "LambdaFunctionOverHttps"
+4. Select Runtime language as "Python 3.13"
+5. Architecture as x86_64
+6. Click "Create function"
+  ![image](https://github.com/user-attachments/assets/f784a54b-5f06-4c01-b1df-b33a99b7e3cd)
+
+7. Click on the Lambda function and add below code to it
+   ```
+   from __future__ import print_function
+
+   import boto3
+   import json
+
+   print('Loading function')
+def lambda_handler(event, context):
+    '''Provide an event that contains the following keys:
+
+      - operation: one of the operations in the operations dict below
+      - tableName: required for operations that interact with DynamoDB
+      - payload: a parameter to pass to the operation being performed
+    '''
+    #print("Received event: " + json.dumps(event, indent=2))
+
+    operation = event['operation']
+
+    if 'tableName' in event:
+        dynamo = boto3.resource('dynamodb').Table(event['tableName'])
+
+    operations = {
+        'create': lambda x: dynamo.put_item(**x),
+        'read': lambda x: dynamo.get_item(**x),
+        'update': lambda x: dynamo.update_item(**x),
+        'delete': lambda x: dynamo.delete_item(**x),
+        'list': lambda x: dynamo.scan(**x),
+        'echo': lambda x: x,
+        'ping': lambda x: 'pong'
+    }
+
+    if operation in operations:
+        return operations[operation](event.get('payload'))
+    else:
+        raise ValueError('Unrecognized operation "{}"'.format(operation))
+   ```
+
+### Test Lambda Function
+Let's test our Lambda function before delploying and as we haven't created our API and DynamoDB so this will be just echo test. Hence, function should output whatever input we pass
+1. Click on the "Test" tab on the Lambda function
+2. Paste the below JSON
+```
+{
+    "operation": "echo",
+    "payload": {
+        "somekey1": "somevalue1",
+        "somekey2": "somevalue2"
+    }
+}
+```
+3. Click "Save"
+![image](https://github.com/user-attachments/assets/915f7a6c-8d98-4b4b-b709-fd7e4fe84e1c)
+
+4. Click "Test" in the "Code" tab
+![image](https://github.com/user-attachments/assets/cc841ea5-1fa4-4a92-b3ea-db22374a6434)
+
+5. Click "Deploy"
+![image](https://github.com/user-attachments/assets/af21904f-9c5a-450f-87bf-80368d2a8e5d)
+
+#### We are all set to create DynamoDB table and API using our Lambda as backend!
+
 ### Create API
 Create DynamoDBOperations API following below steps
 1. Go to API Gateway on AWS Console
@@ -74,12 +145,12 @@ Create DynamoDBOperations API following below steps
    ![image](https://github.com/user-attachments/assets/6dd781c0-74cd-42d6-817b-99f0ea9c8317)
    ![image](https://github.com/user-attachments/assets/542c8141-626f-497d-acbc-aee9b4beac85)
 
-5. API is a collection of resources and methods are integrated with backend HTTP endpoints, Lambda functions, or other AWS services. Click "Create Resource"
+5. API is a collection of resources and methods are integrated with backend HTTP endpoints, Lambda functions, or other AWS services. Click "Create Resource"  
    ![image](https://github.com/user-attachments/assets/011a0e3a-e6e8-4ea1-a11d-a29e993381e5)
-6. Mention resource name "DynamoDBManager" and click "Create resource"
+6. Mention resource name "DynamoDBManager" and click "Create resource"  
    ![image](https://github.com/user-attachments/assets/34f6e1f8-7528-4843-9310-c9f46a87a747)
 
-7. Let's create a POST method for our API. Select "/DynamoDBManager" and click "Create Method"
+7. Let's create a POST method for our API. Select "/DynamoDBManager" and click "Create Method"  
    ![image](https://github.com/user-attachments/assets/553d5867-5016-49eb-af45-48cfcf196e25)
 8. Select
    - Method type: POST
@@ -87,11 +158,6 @@ Create DynamoDBOperations API following below steps
    - Lambda function: LambdaFunctionOverHttps (which we created earlier)
    - Click "Create method"
    ![image](https://github.com/user-attachments/assets/2b5b09ca-f203-45cd-ad5e-9faa7a5f9417)
-
-  
-
-
-### Create Lambda Function
 
 
 
