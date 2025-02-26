@@ -174,7 +174,8 @@ Create the DynamoDB table that the Lambda function uses.
    ![image](https://github.com/user-attachments/assets/32358dbe-effc-498e-8210-2033ce5bd4e7)
 ![image](https://github.com/user-attachments/assets/462f5f2f-8bd4-4cf6-9c8e-90ce0669763f)
 
-### Access and test API using Postman application
+
+## Access and test API using Postman application
 Postman is primarily used for testing and developing APIs, allowing developers to easily create, send, and analyze API requests, making it a key tool for managing the entire API lifecycle, from design and testing to documentation and collaboration. 
 Follow below steps to access our API:
   1. Create a Balnk Collection which is nothing but like creating a folder
